@@ -12,9 +12,11 @@ for ligne in matrice_A:
     matrice_E.extend([nouvelle_ligne, nouvelle_ligne])
     print(matrice_E)  # Dupliquer verticalement
 
+
 print("Matrice E:")
 for ligne in matrice_E:
     print(ligne)
+
 
 # Étape 2: Appliquer ce principe de mise en échelle sur l'image R.jpg
 image = Image.open('../B.jpg')

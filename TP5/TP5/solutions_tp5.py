@@ -2,6 +2,9 @@
 import numpy as np
 from PIL import Image
 
+
+
+
 def dilate_Nenni(image, kernel):
     result = np.zeros([image.shape[0],image.shape[1]])
     image_padded = np.pad(image, ((1, 1), (1, 1)), mode='constant', constant_values=0)
