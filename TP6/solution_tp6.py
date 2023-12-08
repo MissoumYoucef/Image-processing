@@ -114,8 +114,8 @@ def Otsu(image):
 
 def seuillage(image,k):
     
-    image[image < k ] = 255
-    image[image >= k ] = 0
+    image[image < k ] = 0
+    image[image >= k ] = 255
     
     return np.array(image, dtype='uint8')
 
