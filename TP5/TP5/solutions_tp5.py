@@ -15,7 +15,7 @@ def dilate_Nenni(image, kernel):
                 
     return result * 255
 
-def img_binaire(img):
+def img_to_binaire(img):
 
     new_img = [ [255 if pix >=128 else 0 for pix in row] for row in img    ]
     img[img >= 128] = 255 # 255
@@ -86,7 +86,7 @@ img_grey=img.convert('L')
 img_matrix = np.array(img_grey)
 
 # Convert image to binary
-img_binaire = img_binaire(img_matrix)
+img_binaire = img_to_binaire(img_matrix)
 Image.fromarray(img_binaire).show()
 
 
@@ -111,7 +111,7 @@ Image.fromarray(img_ouverture).show()
 
 
 # Fermuture de l'image
-img_fermuture = Erosion(img_erosion, e1)
+img_fermuture =dialte(img_erosion, e1)
 Image.fromarray(img_fermuture).show()
 
 
