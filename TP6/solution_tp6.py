@@ -120,7 +120,7 @@ def seuillage(image,k):
     return np.array(image, dtype='uint8')
 
 
-
+# # Question 4 
 # Lire L'image A
 img_a = Image.open("TP6/A.jpg")
 
@@ -130,7 +130,7 @@ img_a_grey=img_a.convert('L')
 # Conertir L'image A au matrice 
 img_a_matrice = np.array(img_a_grey)
 
-# Otsu
+# Otsu pour trouver k
 k = Otsu(img_a_matrice)
 
 # Conertir L'image A au binaire (seuillage)
@@ -143,42 +143,58 @@ Image.fromarray(img_a_binaire).show()
 e1 = np.ones((10,10))
 
 # dialting of the image A
-img_a_dialted = dialte(img_a_binaire, e1)
-Image.fromarray(img_a_dialted).show()
+# img_a_dialted = dialte(img_a_binaire, e1)
+# Image.fromarray(img_a_dialted).show()
+
+
+# Lire L'image B
+img_b = Image.open("TP6/B.jpg")
+
+# Conertir L'image B au gris 
+img_b_grey=img_b.convert('L')
+
+# Conertir L'image B au matrice 
+img_b_matrice = np.array(img_b_grey)
+
+# Otsu pour trouver k
+k = Otsu(img_b_matrice)
+
+# Conertir L'image B au binaire (seuillage)
+img_b_binaire = seuillage(img_b_matrice, k)
+
+# Conertir la matrice au L'image B
+Image.fromarray(img_b_binaire).show()
 
 
 
 
+# # Question 5
+# Lire L'image B
+img_b = Image.open("TP6/B.jpg")
 
+# Les trois CANEAUX R,G,V
+img_r, img_g, img_bl = img_b.split()
 
+# Calcule la moyenne de k maximum
 
+k_r = Otsu(np.array(img_r))
 
-# # Lire L'image B
-# img_b = Image.open("TP6/B.jpg")
+k_v = Otsu(np.array(img_g))
 
-# # Conertir L'image B au gris 
-# img_b_grey=img_b.convert('L')
+k_b = Otsu(np.array(img_bl))
 
-# # Conertir L'image B au matrice 
-# img_b_matrice = np.array(img_b_grey)
+k=(k_b+k_r+k_v)/3
 
-# # Otsu
-# k = Otsu(img_b_matrice)
+# Conertir L'image B au gris 
+img_b_grey=img_b.convert('L')
 
-# # Conertir L'image B au binaire (seuillage)
-# img_b_binaire = seuillage(img_b_matrice, k)
+# Conertir L'image B au matrice 
+img_b_matrice = np.array(img_b_grey)
 
-# # Conertir la matrice au L'image B
-# Image.fromarray(img_b_binaire).show()
+# Conertir L'image B au binaire (seuillage)
+img_b_binaire = seuillage(img_b_matrice, k)
 
+# Conertir la matrice au L'image B
+Image.fromarray(img_b_binaire).show()
 
-
-
-
-# img_b = Image.open("./B.jpg")
-
-# img_r, img_g, img_bl = img_b.split()
-
-
-# k_r = Otsu(img_r)
 
