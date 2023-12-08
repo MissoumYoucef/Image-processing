@@ -54,7 +54,7 @@ img_minimum.show("Minimum Filter")
 
 
 
-
+# CV
 
 # import cv2
 # import numpy as np
