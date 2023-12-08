@@ -1,14 +1,24 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Dec  7 08:19:22 2023
-
-@author: ait7m
-"""
-
 import numpy as np
 import matplotlib as plt
 from PIL import Image
 
+def dialte(img, e):
+    
+    # matrix of zeros
+    new = np.zeros((img.shape[0], img.shape[1]), dtype=np.uint8)
+    
+    for i in range(e.shape[0]):
+        for j in range(e.shape[1]):
+            
+            if e[i, j] == 1:
+                
+                for u in range(img.shape[0] - e.shape[0]):
+                    for v in range(img.shape[1] - e.shape[1]):
+                        if img[u,v] == 255:
+                            new[u + i , v + j] = 255
+                        
+                            
+    return new 
 
 def histogramme_normalis(image):
     hist, _ = np.histogram(image.ravel(), bins = 256, range=[0,255])
@@ -17,7 +27,7 @@ def histogramme_normalis(image):
     
     return pi
 
-def formule_p1(pi,k):
+def formule_p1(pi,k):  # P1(k)= Somme(pi)   i --> {0....k}
     
     p1 = np.sum(pi[:k]) # de 0 à k 
     #  or 
@@ -28,7 +38,7 @@ def formule_p1(pi,k):
     
     return p1
 
-def formule_p2(pi,k):
+def formule_p2(pi,k): # P2(k)= Somme(pi)   i --> {k+1....L-1}
     
     p2 = np.sum(pi[k:])
     #  or 
@@ -39,7 +49,8 @@ def formule_p2(pi,k):
     
     return p2
 
-def formule_m1(pi, k):
+def formule_m1(pi, k): # m1(k)= Somme(i*pi)/P1(k)  i --> {0....k}
+    
     
     p1 = formule_p1(pi, k)
     
@@ -56,7 +67,7 @@ def formule_m1(pi, k):
     
     return m1
 
-def formule_m2(pi, k):
+def formule_m2(pi, k):  # m2(k)= Somme(i*pi)/P2(k)  i --> {k+1....L-1}
     
     p2 = formule_p2(pi, k)
     
@@ -108,16 +119,61 @@ def seuillage(image,k):
     
     return np.array(image, dtype='uint8')
 
-img_a = Image.open("./A.jpg").convert('L')
 
 
-img_a = np.array(img_a)
+# Lire L'image A
+img_a = Image.open("TP6/A.jpg")
 
-k = Otsu(img_a)
+# Conertir L'image A au gris 
+img_a_grey=img_a.convert('L')
 
-img_a = seuillage(img_a, k )
+# Conertir L'image A au matrice 
+img_a_matrice = np.array(img_a_grey)
 
-Image.fromarray(img_a).show()
+# Otsu
+k = Otsu(img_a_matrice)
+
+# Conertir L'image A au binaire (seuillage)
+img_a_binaire = seuillage(img_a_matrice, k)
+
+# Conertir la matrice au L'image A
+Image.fromarray(img_a_binaire).show()
+
+# e1
+e1 = np.ones((10,10))
+
+# dialting of the image A
+img_a_dialted = dialte(img_a_binaire, e1)
+Image.fromarray(img_a_dialted).show()
+
+
+
+
+
+
+
+
+# # Lire L'image B
+# img_b = Image.open("TP6/B.jpg")
+
+# # Conertir L'image B au gris 
+# img_b_grey=img_b.convert('L')
+
+# # Conertir L'image B au matrice 
+# img_b_matrice = np.array(img_b_grey)
+
+# # Otsu
+# k = Otsu(img_b_matrice)
+
+# # Conertir L'image B au binaire (seuillage)
+# img_b_binaire = seuillage(img_b_matrice, k)
+
+# # Conertir la matrice au L'image B
+# Image.fromarray(img_b_binaire).show()
+
+
+
+
 
 # img_b = Image.open("./B.jpg")
 
