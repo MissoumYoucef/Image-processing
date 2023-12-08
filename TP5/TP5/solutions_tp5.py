@@ -95,22 +95,22 @@ e1 = np.ones((5,5))
 e2 = np.array([[0,1,0], [1,1,1], [0,1,0]])
 
 
-# dialting of the image
+# dialting of the image avec e1
 img_dialted = dialte(img_binaire, e1)
 Image.fromarray(img_dialted).show()
 
 
-# Erosion of the image
+# Erosion of the image avec e1
 img_erosion = Erosion(img_binaire, e1)
 Image.fromarray(img_erosion).show()
 
 
-# Overture de l'image
+# Overture de l'image avec e1
 img_ouverture = Erosion(img_dialted, e1)
 Image.fromarray(img_ouverture).show()
 
 
-# Fermuture de l'image
+# Fermuture de l'image avec e1
 img_fermuture =dialte(img_erosion, e1)
 Image.fromarray(img_fermuture).show()
 

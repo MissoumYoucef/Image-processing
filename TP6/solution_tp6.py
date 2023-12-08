@@ -114,8 +114,8 @@ def Otsu(image):
 
 def seuillage(image,k):
     
-    image[image < k ] = 0
-    image[image >= k ] = 255
+    image[image < k ] = 255
+    image[image >= k ] = 0
     
     return np.array(image, dtype='uint8')
 
@@ -143,8 +143,8 @@ Image.fromarray(img_a_binaire).show()
 e1 = np.ones((10,10))
 
 # dialting of the image A
-# img_a_dialted = dialte(img_a_binaire, e1)
-# Image.fromarray(img_a_dialted).show()
+img_a_dialted = dialte(img_a_binaire, e1)
+Image.fromarray(img_a_dialted).show()
 
 
 # Lire L'image B
@@ -184,6 +184,7 @@ k_v = Otsu(np.array(img_g))
 k_b = Otsu(np.array(img_bl))
 
 k=(k_b+k_r+k_v)/3
+print(k)
 
 # Conertir L'image B au gris 
 img_b_grey=img_b.convert('L')
