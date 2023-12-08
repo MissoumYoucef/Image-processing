@@ -18,8 +18,6 @@ def dilate_Nenni(image, kernel):
 def img_binaire(img):
 
     new_img = [ [255 if pix >=128 else 0 for pix in row] for row in img    ]
-
-
     img[img >= 128] = 255 # 255
     img[img < 128] = 0
 
@@ -65,21 +63,21 @@ def reflexion(e):
             
             e_ref[e.shape[0]  - i - 1, e.shape[1]  - j - 1] = e[i,j]
     
-    
     return e_ref
+
 
 def Erosion(img , e):
     
     img =  255 - img 
     
-    e = reflexion(e) # e*
+    e = reflexion(e) 
     
     return 255 - dialte(img, e)
 
 # Show image
-img_url="TP5\TP5\A22.jpg"
+img_url="TP5\TP5\A.jpg"
 img=Image.open(img_url)
-# img.show()
+img.show()
 
 # Convert image to grayscale
 img_grey=img.convert('L')
@@ -89,36 +87,45 @@ img_matrix = np.array(img_grey)
 
 # Convert image to binary
 img_binaire = img_binaire(img_matrix)
-# Image.fromarray(img_binaire).show()
+Image.fromarray(img_binaire).show()
+
 
 # e1, e2
-e1 = np.ones((3,3))
+e1 = np.ones((5,5))
 e2 = np.array([[0,1,0], [1,1,1], [0,1,0]])
+
 
 # dialting of the image
 img_dialted = dialte(img_binaire, e1)
-# Image.fromarray(img_dialted).show()
+Image.fromarray(img_dialted).show()
 
 
-
-# reflexion de e2
-print("reflexion de e2 : ",reflexion(e2))
-
-
-
-# print("e1, img : ", e1.shape, img.shape)
-# print("reflexion de e2 : ",reflexion(e2))
+# Erosion of the image
+img_erosion = Erosion(img_binaire, e1)
+Image.fromarray(img_erosion).show()
 
 
-# img1 = dialte(img, e1)
-# Image.fromarray(img1).show()
+# Overture de l'image
+img_ouverture = Erosion(img_dialted, e1)
+Image.fromarray(img_ouverture).show()
 
-# img = np.array(Image.open("A.jpg").convert('L'))
-# img = img_binaire(img)
-# img1 = dialte(img, e1)
-# img2 = Erosion(img, e1)
 
-# Image.fromarray((img1 - img2)).show()
+# Fermuture de l'image
+img_fermuture = Erosion(img_erosion, e1)
+Image.fromarray(img_fermuture).show()
+
+
+# Contour interieur
+Image.fromarray((img_binaire - img_erosion)).show()
+
+
+# Contour exterieur
+Image.fromarray((img_dialted - img_binaire)).show()
+
+
+# Gradiant
+Image.fromarray((img_dialted - img_erosion)).show()
+
 
 
 
