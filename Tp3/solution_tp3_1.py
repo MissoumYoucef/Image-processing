@@ -78,10 +78,16 @@ def correctiongamma(image, gamma, c = 255):
     return Image.fromarray(image)
 
 
+def ajustementcontraste(l,kmin = 0, kmax = 255):    
+
+    ll = kmin + ((kmax - kmin) / (lmax - lmin)) * (l - lmin)
+    
+    return ll
 
 
 image= Image.open("C.jpg")
 print(image.size)
+image.show()
 
 r_intensity, g_intensity, b_intensity = image.split()
 
@@ -106,18 +112,12 @@ ax3.set_xlim([0, 255])
 ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
 
 #plt.show()
-fig.savefig("histogram1.png")
+# fig.savefig("histogram1.png")
 
 
 
 
 lmin,lmax = None, None
-
-def ajustementcontraste(l,kmin = 0, kmax = 255):    
-
-    ll = kmin + ((kmax - kmin) / (lmax - lmin)) * (l - lmin)
-    
-    return ll
 
 lmin,lmax = np.min(np.array(r_intensity)), np.max(np.array(r_intensity))
 print("lmin,lmax r : ",lmin,lmax)
