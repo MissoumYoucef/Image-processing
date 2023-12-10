@@ -24,33 +24,35 @@ import scipy.ndimage
 
 # #d --> modifier l'illumination
 
-def niveaux_gris(image, k, d):
+
+# 3. Appliquer la transformation linéaire des niveaux de gris
+def transform_linear(image, k, d):
     
     image = np.array(image)
     
     image = np.array(k*image + d, dtype='uint8')
     
-    q1 = np.zeros((image.shape[0], image.shape[1]))
+    # q1 = np.zeros((image.shape[0], image.shape[1]))
     
-    for i in range(image.shape[0]):
+    # for i in range(image.shape[0]):
         
-        for j in range(image.shape[1]):
+    #     for j in range(image.shape[1]):
             
-            q1[i, j] = k * image[i,j] + d
+    #         q1[i, j] = k * image[i,j] + d
             
-    image = np.array(q1, dtype='uint8')
+    # image = np.array(q1, dtype='uint8')
     
     return Image.fromarray(image)
 
-
+# 4. Calculer l'image inverse de (A)
 def 𝐼𝑚𝑔𝐼𝑛𝑣𝑒𝑟𝑠𝑒(image):
     
     image = np.array(image)
     
     return Image.fromarray(255  - image)
 
-
-def t_logarithmique(image):
+# 5. Appliquer la transformation logarithmique
+def log_transform(image):
     
     image = np.array(image)
    
@@ -63,7 +65,7 @@ def t_logarithmique(image):
     
     return Image.fromarray(image)
 
-
+# 6. Appliquer la correction de gamma
 def correctiongamma(image, gamma, c = 255):
     
     image = np.array(image)
@@ -85,37 +87,34 @@ def ajustementcontraste(l,kmin = 0, kmax = 255):
     return ll
 
 
-image= Image.open("./C.jpg")
-print(image.size)
-image.show()
+# 1. Lire une image (A)
+imgA = Image.open("Tp3/A.jpg")
 
-r_intensity, g_intensity, b_intensity = image.split()
+# 2. Afficher le format, les dimensions et le mode de représentation de l’image A.
+print(imgA.format, imgA.size, imgA.mode)
 
+# 3. Appliquer la transformation linéaire des niveaux de gris
+imgA_linear_transformed = transform_linear(imgA,k=1,d=50)
+imgA_linear_transformed.show()
 
-img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
+# 4. Calculer l'image inverse de (A)
+imgA_inverse = 𝐼𝑚𝑔𝐼𝑛𝑣𝑒𝑟𝑠𝑒(imgA)
+imgA_inverse.show()
 
-fig,(ax1,ax2,ax3) = plt.subplots(1, 3,figsize=(24,6))
+# 5. Appliquer la transformation logarithmique
+imgB = Image.open("Tp3/B.jpg")
+imgB_log = log_transform(imgB)
+imgB_log.show()
 
-ax1.set_xlabel("red value")
-ax1.set_ylabel("Pixel count")
-ax1.set_xlim([0, 255])
-ax1.hist(np.array(r_intensity).ravel(), 256, [0,255], color = 'red')
+# 6. Appliquer la correction de gamma
+gamma_values = [0.2, 0.4, 1.5, 2.5]
+gamma_images = [correctiongamma(imgB, gamma) for gamma in gamma_values]
+for i, img in enumerate(gamma_images):
+    img.save(f"gamma_img{i+1}.jpg")
 
-ax2.set_xlabel("Green value")
-ax2.set_ylabel("Pixel count")
-ax2.set_xlim([0, 255])
-ax2.hist(np.array(g_intensity).ravel(), 256, [0,255], color = 'green')
+# 7. Appliquer l’ajustement de contraste
 
-ax3.set_xlabel("Blue value")
-ax3.set_ylabel("Pixel count")
-ax3.set_xlim([0, 255])
-ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
-
-#plt.show()
-# fig.savefig("histogram1.png")
-
-
-
+r_intensity, g_intensity, b_intensity = imgA.split()
 
 lmin,lmax = None, None
 
@@ -134,6 +133,7 @@ print("lmin,lmax b : ",lmin,lmax)
 b_intensity = b_intensity.point(ajustementcontraste)
 
 
+# 8. Tracer l’histogramme des trois canaux après l’ajustement de contraste.
 
 img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
 
@@ -155,9 +155,70 @@ ax3.set_xlim([0, 255])
 ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
 
 plt.show()
+
+# 9. Calculer l’histogramme cumulé des trois canaux après l’ajustement de contraste.
+
+
+
+# image= Image.open("Tp3/C.jpg")
+# print(image.size)
+# image.show()
+
+# r_intensity, g_intensity, b_intensity = image.split()
+
+
+# img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
+
+# fig,(ax1,ax2,ax3) = plt.subplots(1, 3,figsize=(24,6))
+
+# ax1.set_xlabel("red value")
+# ax1.set_ylabel("Pixel count")
+# ax1.set_xlim([0, 255])
+# ax1.hist(np.array(r_intensity).ravel(), 256, [0,255], color = 'red')
+
+# ax2.set_xlabel("Green value")
+# ax2.set_ylabel("Pixel count")
+# ax2.set_xlim([0, 255])
+# ax2.hist(np.array(g_intensity).ravel(), 256, [0,255], color = 'green')
+
+# ax3.set_xlabel("Blue value")
+# ax3.set_ylabel("Pixel count")
+# ax3.set_xlim([0, 255])
+# ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
+
+# plt.show()
+# # fig.savefig("histogram1.png")
+
+
+
+
+
+
+
+
+# img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
+
+# fig,(ax1,ax2,ax3) = plt.subplots(1, 3,figsize=(24,6))
+
+# ax1.set_xlabel("red value")
+# ax1.set_ylabel("Pixel count")
+# ax1.set_xlim([0, 255])
+# ax1.hist(np.array(r_intensity).ravel(), 256, [0,255], color = 'red')
+
+# ax2.set_xlabel("Green value")
+# ax2.set_ylabel("Pixel count")
+# ax2.set_xlim([0, 255])
+# ax2.hist(np.array(g_intensity).ravel(), 256, [0,255], color = 'green')
+
+# ax3.set_xlabel("Blue value")
+# ax3.set_ylabel("Pixel count")
+# ax3.set_xlim([0, 255])
+# ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
+
+# plt.show()
 # fig.savefig("histogram2.png")
 
-Image.open("histogram2.png").show()
+# Image.open("histogram2.png").show()
 
 
     
