@@ -155,7 +155,7 @@ ax3.set_xlim([0, 255])
 ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
 
 plt.show()
-fig.savefig("histogram2.png")
+# fig.savefig("histogram2.png")
 
 Image.open("histogram2.png").show()
 
