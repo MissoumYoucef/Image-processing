@@ -140,7 +140,7 @@ img_a_binaire = seuillage(img_a_matrice, k)
 Image.fromarray(img_a_binaire).show()
 
 # e1
-e1 = np.ones((10,10))
+e1 = np.ones((7,7))
 
 # dialting of the image A
 img_a_dialted = dialte(img_a_binaire, e1)
@@ -183,7 +183,7 @@ k_v = Otsu(np.array(img_g))
 
 k_b = Otsu(np.array(img_bl))
 
-k=(k_b+k_r+k_v)/3
+k=(k_b + k_r + k_v)/3
 print(k)
 
 # Conertir L'image B au gris 

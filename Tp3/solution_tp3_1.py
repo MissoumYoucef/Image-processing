@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov  9 08:30:58 2023
 
-@author: ait7m
-"""
 
 
 import numpy as np
@@ -89,6 +84,7 @@ def ajustementcontraste(l,kmin = 0, kmax = 255):
 
 # 1. Lire une image (A)
 imgA = Image.open("Tp3/A.jpg")
+imgA.show()
 
 # 2. Afficher le format, les dimensions et le mode de représentation de l’image A.
 print(imgA.format, imgA.size, imgA.mode)
@@ -132,10 +128,10 @@ print("lmin,lmax b : ",lmin,lmax)
 
 b_intensity = b_intensity.point(ajustementcontraste)
 
+new_img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
+new_img.show()
 
 # 8. Tracer l’histogramme des trois canaux après l’ajustement de contraste.
-
-img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
 
 fig,(ax1,ax2,ax3) = plt.subplots(1, 3,figsize=(24,6))
 
@@ -157,6 +153,30 @@ ax3.hist(np.array(b_intensity).ravel(), 256, [0,255], color = 'blue')
 plt.show()
 
 # 9. Calculer l’histogramme cumulé des trois canaux après l’ajustement de contraste.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
