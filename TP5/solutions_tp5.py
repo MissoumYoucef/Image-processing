@@ -75,7 +75,7 @@ def Erosion(img , e):
     return 255 - dialte(img, e)
 
 # Show image
-img_url="TP5\TP5\A.jpg"
+img_url="TP5\A.jpg"
 img=Image.open(img_url)
 img.show()
 
