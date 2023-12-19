@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov  2 08:43:46 2023
-
-@author: ait7m
-"""
-
 import numpy as np
 from PIL import Image
 
@@ -28,32 +21,42 @@ def ex01(a,n):
 
 def exo3():
     
-    image= Image.open("B.jpg")
+    # Charger l'image R.jpg
+    image_R = Image.open("Tp2/R.jpg")    
+    image_R = np.array(image_R)
+    nbligne,nbcolonne, _ = image_R.shape
     
-    image = np.array(image)
-    Image.fromarray(image).show()
-    nbligne,nbcolonne, _ = image.shape
+    symmetry_horizontal = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
     
-    q1 = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
+    symmetry_vertical = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
     
-    q2 = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
-    
-    q3 = np.zeros((nbcolonne,nbligne,3), dtype = 'uint8')
+    rotation_90_degrees = np.zeros((nbcolonne,nbligne,3), dtype = 'uint8')
     
     
-    for i in range(nbligne ):
+    for i in range(nbligne):
         for j in range(nbcolonne):
-            q1[nbligne - i - 1, j] = image[i,j]
-            q2[i, nbcolonne - j - 1] = image[i,j]
-            q3[j, nbligne - i - 1] = image[i,j] # -i est (nbligne - i - 1)
+
+            # 1. Appliquer une symétrie par rapport à la moitié des lignes
             
-    Image.fromarray(image).show()
-    #Image.fromarray(q1).show() 
-    Image.fromarray(q3).show() 
+            symmetry_horizontal[nbligne - i - 1, j] = image_R[i,j]
+
+            # 2. Appliquer une symétrie par rapport à la moitié des colonnes
+
+            symmetry_vertical[i, nbcolonne - j - 1] = image_R[i,j]
+
+            # 3. Appliquer une rotation de 90°
+
+            rotation_90_degrees[j, nbligne - i - 1] = image_R[i,j] # -i est (nbligne - i - 1)
+            
+
+    # Afficher les images résultantes
+    Image.fromarray(symmetry_horizontal).show()
+    Image.fromarray(symmetry_vertical).show()
+    Image.fromarray(rotation_90_degrees).show()
 
 
-main(a, 2)
-main(a, 8)
+# main(a, 2)
+# main(a, 8)
 
 
 exo3()

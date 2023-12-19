@@ -8,9 +8,8 @@ from PIL import Image
 
 # Charger l'image R.jpg
 image_R = Image.open("../B.jpg")
-
-
 image_R.show()
+
 # 1. Appliquer une symétrie par rapport à la moitié des lignes
 symmetry_horizontal = image_R.transpose(Image.FLIP_TOP_BOTTOM)
 
