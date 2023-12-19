@@ -1,6 +1,3 @@
-
-
-
 import numpy as np
 from PIL import Image
 
@@ -26,6 +23,8 @@ def transform_linear(image, k, d):
     image = np.array(image)
     
     image = np.array(k*image + d, dtype='uint8')
+
+    # or
     
     # q1 = np.zeros((image.shape[0], image.shape[1]))
     
@@ -65,10 +64,9 @@ def correctiongamma(image, gamma, c = 255):
     
     image = np.array(image)
     # normaliser image sur 255 pour avoir l'intervalle [0,1]
-    # multiplier par 255 pour intensités entre [0 255] 
+    # multiplier par 255 pour intensités entre [0 255]
     image = image / c
-    image = np.power(image, gamma)
-    image = c * image
+    image = c*np.power(image, gamma)
 
     image = np.array(image, dtype='uint8')
 
@@ -112,21 +110,21 @@ for i, img in enumerate(gamma_images):
 
 r_intensity, g_intensity, b_intensity = imgA.split()
 
-lmin,lmax = None, None
 
 lmin,lmax = np.min(np.array(r_intensity)), np.max(np.array(r_intensity))
-print("lmin,lmax r : ",lmin,lmax)
-r_intensity = r_intensity.point(ajustementcontraste) # la fonction point elle applique la fonction ajustementcontraste pour chaque pixl
+print("lmin,lmax de r : ",lmin,lmax)
+r_intensity = r_intensity.point(ajustementcontraste) # la fonction point elle applique la fonction ajustementcontraste pour chaque pixel
+
 
 lmin,lmax = np.min(np.array(g_intensity)), np.max(np.array(g_intensity))
 print("lmin,lmax g : ",lmin,lmax)
-
 g_intensity = g_intensity.point(ajustementcontraste)
+
 
 lmin,lmax = np.min(np.array(b_intensity)), np.max(np.array(b_intensity))
 print("lmin,lmax b : ",lmin,lmax)
-
 b_intensity = b_intensity.point(ajustementcontraste)
+
 
 new_img = Image.merge("RGB", (r_intensity, g_intensity, b_intensity))
 new_img.show()

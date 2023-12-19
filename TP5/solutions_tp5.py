@@ -106,12 +106,12 @@ Image.fromarray(img_erosion).show()
 
 
 # Overture de l'image avec e1
-img_ouverture = Erosion(img_dialted, e1)
+img_ouverture=Erosion(img_dialted, e1)
 Image.fromarray(img_ouverture).show()
 
 
 # Fermuture de l'image avec e1
-img_fermuture =dialte(img_erosion, e1)
+img_fermuture=dialte(img_erosion, e1)
 Image.fromarray(img_fermuture).show()
 
 

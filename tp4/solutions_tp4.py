@@ -32,7 +32,7 @@ img_inverse = 255 - np.array(img_gris)
 img_inverse=Image.fromarray(img_inverse).show("Inverse Image")
 
 # 7. Save the inverse image
-# img_inverse.save('tp5/ImgInverse.jpg')
+img_inverse.save('tp5/ImgInverse.jpg')
 
 # 8. Filter the images using the mentioned filters
 
