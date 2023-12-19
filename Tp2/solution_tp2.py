@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-a = np.array([[1,2], [3, 4]])
+a = np.array([[1,2,5], [3, 4,8]])
         
 def ex01(a,n):
     e = np.zeros((a.shape[0] * n, a.shape[1] * n))
@@ -15,6 +15,7 @@ def ex01(a,n):
             
             # e[2*i : 2*i + 2, 2*j : 2*j + 2] = a[i, j]
             e[n*i : n*i + n, n*j : n*j + n] = a[i, j]
+            # e[i : i + n+1, j : j + n+1] = a[i, j]
 
     print(e)
     return e
@@ -25,14 +26,14 @@ def exo3():
     image_R = Image.open("Tp2/R.jpg")    
     image_R = np.array(image_R)
     nbligne,nbcolonne, _ = image_R.shape
-    
+
     symmetry_horizontal = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
-    
+
     symmetry_vertical = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
-    
+
     rotation_90_degrees = np.zeros((nbcolonne,nbligne,3), dtype = 'uint8')
-    
-    
+
+
     for i in range(nbligne):
         for j in range(nbcolonne):
 
@@ -59,7 +60,8 @@ def exo3():
 # main(a, 8)
 
 
-exo3()
+ex01(a,2)
+
 # matA=np.array([[1,2],[3,4]])
 # matA= np.insert(matA, 1, [1,3],axis=1)
 # print("Matrice A= ",matA)

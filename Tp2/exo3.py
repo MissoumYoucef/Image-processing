@@ -4,22 +4,39 @@
 # 2. Appliquer une symétrie par rapport à la moitié des colonnes de l’image R
 # 3. Appliquer une rotation de 90° de l’image R.jpg.
 
+
 from PIL import Image
+import numpy as np
 
 # Charger l'image R.jpg
-image_R = Image.open("../B.jpg")
-image_R.show()
+image_R = Image.open("Tp2/R.jpg")    
+image_R = np.array(image_R)
+nbligne,nbcolonne, _ = image_R.shape
 
-# 1. Appliquer une symétrie par rapport à la moitié des lignes
-symmetry_horizontal = image_R.transpose(Image.FLIP_TOP_BOTTOM)
+symmetry_horizontal = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
 
-# 2. Appliquer une symétrie par rapport à la moitié des colonnes
-symmetry_vertical = image_R.transpose(Image.FLIP_LEFT_RIGHT)
+symmetry_vertical = np.zeros((nbligne, nbcolonne,3), dtype = 'uint8')
 
-# 3. Appliquer une rotation de 90°
-rotation_90_degrees = image_R.transpose(Image.ROTATE_90)
+rotation_90_degrees = np.zeros((nbcolonne,nbligne,3), dtype = 'uint8')
+
+
+for i in range(nbligne):
+    for j in range(nbcolonne):
+
+        # 1. Appliquer une symétrie par rapport à la moitié des lignes
+        
+        symmetry_horizontal[nbligne - i - 1, j] = image_R[i,j]
+
+        # 2. Appliquer une symétrie par rapport à la moitié des colonnes
+
+        symmetry_vertical[i, nbcolonne - j - 1] = image_R[i,j]
+
+        # 3. Appliquer une rotation de 90°
+
+        rotation_90_degrees[j, nbligne - i - 1] = image_R[i,j] # -i est (nbligne - i - 1)
+        
 
 # Afficher les images résultantes
-symmetry_horizontal.show()
-symmetry_vertical.show()
-rotation_90_degrees.show()
+Image.fromarray(symmetry_horizontal).show()
+Image.fromarray(symmetry_vertical).show()
+Image.fromarray(rotation_90_degrees).show()
