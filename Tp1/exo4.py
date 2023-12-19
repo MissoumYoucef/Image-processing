@@ -5,7 +5,7 @@
 from PIL import Image
 
 # Ouvrir l'image originale
-image_originale = Image.open("../A.jpg")
+image_originale = Image.open("Tp1/A.jpg")
 image_originale.show()
 
 # Obtenir la taille de l'image originale

@@ -4,7 +4,7 @@
 from PIL import Image
 
 # Load the image
-image = Image.open("../A.jpg")
+image = Image.open("Tp1/A.jpg")
 
 # Convert the image to grayscale
 img_gris = image.convert("L")
