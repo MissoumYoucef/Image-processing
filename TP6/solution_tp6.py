@@ -166,8 +166,6 @@ img_b_binaire = seuillage(img_b_matrice, k)
 Image.fromarray(img_b_binaire).show()
 
 
-
-
 # # Question 5
 # Lire L'image B
 img_b = Image.open("TP6/B.jpg")
@@ -186,16 +184,16 @@ k_b = Otsu(np.array(img_bl))
 k=(k_b + k_r + k_v)/3
 print(k)
 
-# Conertir L'image B au gris 
+# Convertir L'image B au gris 
 img_b_grey=img_b.convert('L')
 
-# Conertir L'image B au matrice 
+# Convertir L'image B au matrice 
 img_b_matrice = np.array(img_b_grey)
 
-# Conertir L'image B au binaire (seuillage)
+# Convertir L'image B au binaire (seuillage)
 img_b_binaire = seuillage(img_b_matrice, k)
 
-# Conertir la matrice au L'image B
+# Convertir la matrice au L'image B
 Image.fromarray(img_b_binaire).show()
 
 
